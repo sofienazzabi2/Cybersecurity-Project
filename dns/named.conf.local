@@ -1,0 +1,4 @@
+zone "security.tn" {
+    type master;
+    file "/etc/bind/db.security.tn";
+};

@@ -1,0 +1,86 @@
+version: '2'
+services:
+  openldap:
+    build:
+      context: ./openldap
+    container_name: openldap
+    networks:
+      static-network:
+        ipv4_address: 172.20.128.2
+    dns:
+      - 172.20.128.10
+    depends_on:
+      - dns
+  ssh:
+    build:
+      context: ./ssh
+    container_name: ssh
+    networks:
+      static-network:
+        ipv4_address: 172.20.128.4
+    dns:
+      - 172.20.128.10
+    depends_on:
+      - openldap
+      - dns
+  apache:
+    build:
+      context: ./apache
+    container_name: apache
+    networks:
+      static-network:
+        ipv4_address: 172.20.128.6
+    dns:
+      - 172.20.128.10
+    depends_on:
+      - openldap
+      - dns
+  openvpn:
+    build:
+      context: ./openvpn
+    container_name: openvpn
+    devices:
+      - /dev/net/tun
+    cap_add:
+      - NET_ADMIN
+    networks:
+      static-network:
+        ipv4_address: 172.20.128.8
+    dns:
+      - 172.20.128.10
+    depends_on:
+      - openldap
+      - dns
+  dns:
+    build:
+      context: ./dns
+    container_name: dns
+    networks:
+      static-network:
+        ipv4_address: 172.20.128.10
+  validation:
+    build:
+      context: ./validation
+    container_name: validation
+    networks:
+      static-network:
+        ipv4_address: 172.20.128.3
+    dns:
+      - 172.20.128.10
+    devices:
+      - /dev/net/tun
+    cap_add:
+      - NET_ADMIN
+    depends_on:
+      - openldap
+      - ssh
+      - apache
+      - openvpn
+      - dns
+      
+networks:
+  static-network:
+    ipam:
+      config:
+        - subnet: 172.20.0.0/16
+          ip_range: 172.28.5.0/24

@@ -1,0 +1,84 @@
+dn: ou=users,dc=security,dc=tn
+objectClass: organizationalUnit
+ou: users
+
+dn: ou=groups,dc=security,dc=tn
+objectClass: organizationalUnit
+ou: groups
+
+dn: cn=devteam,ou=groups,dc=security,dc=tn
+objectClass: posixGroup
+cn: devteam
+gidNumber: 5000
+memberUid: aziz
+
+dn: cn=marketingteam,ou=groups,dc=security,dc=tn
+objectClass: posixGroup
+cn: marketingteam
+gidNumber: 5001
+memberUid: sofien
+
+dn: cn=webusers,ou=groups,dc=security,dc=tn
+objectClass: top
+objectClass: groupOfNames
+cn: webusers
+description: web Users
+member: uid=sofien,ou=users,dc=security,dc=tn
+member: uid=firas,ou=users,dc=security,dc=tn
+
+dn: cn=vpnusers,ou=groups,dc=security,dc=tn
+objectClass: top
+objectClass: groupOfNames
+cn: vpnusers
+description: VPN Users
+member: uid=firas,ou=users,dc=security,dc=tn
+
+dn: uid=aziz,ou=users,dc=security,dc=tn
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+uid: aziz
+sn: doe
+givenName: aziz
+cn: aziz doe
+displayName: aziz doe
+uidNumber: 10000
+gidNumber: 5000
+userPassword: {SSHA}MrHBgjsDXpYvKY12ESmsURLjK3zX6tgG
+gecos: aziz doe
+loginShell: /bin/bash
+homeDirectory: /home/aziz
+userCertificate;binary:< file:///etc/openldap/certs/aziz.der
+
+dn: uid=sofien,ou=users,dc=security,dc=tn
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+uid: sofien
+sn: da
+givenName: sofien
+cn: sofien da
+displayName: sofien da
+uidNumber: 10001
+gidNumber: 5001
+userPassword: {SSHA}MrHBgjsDXpYvKY12ESmsURLjK3zX6tgG
+gecos: sofien da
+loginShell: /bin/bash
+homeDirectory: /home/sofien
+userCertificate;binary:< file:///etc/openldap/certs/sofien.der
+
+dn: uid=firas,ou=users,dc=security,dc=tn
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+uid: firas
+sn: da
+givenName: firas
+cn: firas da
+displayName: firas da
+uidNumber: 10002
+gidNumber: 5001
+userPassword: {SSHA}MrHBgjsDXpYvKY12ESmsURLjK3zX6tgG
+gecos: firas da
+loginShell: /bin/bash
+homeDirectory: /home/firas

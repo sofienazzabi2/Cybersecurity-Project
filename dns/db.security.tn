@@ -1,0 +1,22 @@
+; /etc/bind/db.security.tn
+
+$TTL    604800
+@       IN      SOA     ns1.security.tn. admin.security.tn. (
+                              3         ; Serial
+                         604800         ; Refresh
+                          86400         ; Retry
+                        2419200         ; Expire
+                         604800 )       ; Negative Cache TTL
+
+; Name servers
+@       IN      NS      ns1.security.tn.
+
+; IP addresses for name servers
+ns1     IN      A       172.20.128.10
+
+; Sample hosts
+openldap         IN      A       172.20.128.2
+ssh              IN      A       172.20.128.4
+apache           IN      A       172.20.128.6
+openvpn          IN      A       172.20.128.8
+kdc              IN      A       172.20.128.12
